@@ -118,16 +118,4 @@
   },
   "mail": "juan@gmail.com",
   "mensaje": "500"
-},{
-  "_id": {
-    "$oid": "63179a8f7e9c5e87b323b6cc"
-  },
-  "fecha": {
-    "$timestamp": {
-      "t": 0,
-      "i": 0
-    }
-  },
-  "mail": "pepe@gmail.com",
-  "mensaje": "S T A R D U S T"
 }]
