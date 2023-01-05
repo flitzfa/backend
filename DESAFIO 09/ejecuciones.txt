@@ -1,0 +1,185 @@
+
+Se crea la base de datos llamada "ecommerce"
+
+use ecommerce
+
+Creo 2 colecciones y agrego 10 documentos
+
+db.mensajes.insertMany([
+    {
+        _id: 1,
+        mail: "pepe@gmail.com",
+        mensaje: "hola",
+        date: "28/12/2022 20:08:22",
+    },
+    {
+        _id: 2,
+        mail: "juan@gmail.com",
+        mensaje: "hola pepe",
+        date: "28/12/2022 20:09:54",
+    },
+    {
+        _id: 3,
+        mail: "diego@gmail.com",
+        mensaje: "soy diego",
+        date: "28/12/2022 20:10:43",
+    },
+    {
+        _id: 4,
+        mail: "pepe@gmail.com",
+        mensaje: "que tal todo",
+        date: "28/12/2022 20:11:32",
+    },
+    {
+        _id: 5,
+        mail: "juan@gmail.com",
+        mensaje: "bastante aburrido",
+        date: "28/12/2022 20:11:56",
+    },
+    {   _id: 6,   
+        mail: "mod@pagina.com",
+        mensaje: "Anuncio!",
+        date: "28/12/2022 20:12:22",
+    },
+    {   _id: 7,
+        mail: "pepe@gmail.com",
+        mensaje: "123123",
+        date: "28/12/2022 20:13:43",
+    },
+    {   _id: 8,
+        mail: "juan@gmail.com",
+        mensaje: "skyhigh",
+        date: "28/12/2022 20:14:51",
+    },
+    {   _id: 9,
+        mail: "pepe@gmail.com",
+        mensaje: "blue",
+        date: "28/12/2022 20:15:23",
+    },
+    {   _id: 10,
+        mail: "juan@gmail.com",
+        mensaje: "500",
+        date: "28/12/2022 20:16:11",
+    },
+])
+
+db.productos.insertMany([
+    {
+        _id: 1,
+        price: 120,
+        title: "Gorro azul",
+        thumbnail: "imgUrl",
+    },
+    {
+        _id: 2,
+        price: 580,
+        title: "Gorro negro",
+        thumbnail: "imgUrl",
+    },
+    {
+        _id: 3,
+        price: 900,
+        title: "Gorro rosa",
+        thumbnail: "imgUrl",
+    },
+    {
+        _id: 4,
+        price: 1280,
+        title: "Camiseta Boquita",
+        thumbnail: "imgUrl",
+    },
+    {
+        _id: 5,
+        price: 1700,
+        title: "Camiseta Riber",
+        thumbnail: "imgUrl",
+    },
+    {
+        _id: 6,
+        price: 2300,
+        title: "Camiseta UChile",
+        thumbnail: "imgUrl",
+    },
+    {
+        _id: 7,
+        price: 2860,
+        title: "Camiseta Real Madrid Balenciaga",
+        thumbnail: "imgUrl",
+    },
+    {
+        _id: 8,
+        price: 3350,
+        title: "Chaqueta UChile",
+        thumbnail: "imgUrl",
+    },
+    {
+        _id: 9,
+        price: 4320,
+        title: "Chaqueta Boquita",
+        thumbnail: "imgUrl",
+    },
+    {
+        _id: 10,
+        price: 4990,
+        title: "Chaqueta Real Madrid",
+        thumbnail: "imgUrl",
+    },
+])
+
+Listamos los documentos de cada coleccion con los comandos:
+
+db.mensajes.find({})
+db.productos.find({})
+
+Muestro la cantidad de documentos en cada una de las colecciones con los comandos:
+
+db.mensajes.countDocuments({})
+db.productos.countDocuments({})
+
+Agrego un producto mas a la coleccion de productos con el comando: 
+
+db.productos.insertOne({
+    _id: 11,
+    price: 2500,
+    title: "Chaqueta San Silencio",
+    thumbnail: "imgUrl",
+})
+
+Realizo consulta de productos con precio menor a 1000 :
+
+db.productos.find({ price: { $lt: 1000 } })
+
+Realizo consulta de productos con precio entre 1000 y 3000 :
+
+db.productos.find({ $and: [ { price: { $gt: 1000 } }, { price: { $lt: 3000 } } ] })
+
+Realizo consulta de productos con precio mayor a 3000:
+
+db.productos.find({ price: { $gt: 3000 } })
+
+Realizo consulta de productos que me trae el tercer producto mas barato:
+
+db.productos.find().sort({ price: 1 }).limit(1).skip(2)
+
+Actualizo todos los productos y les agrego un stock de 100 a todos :
+
+db.productos.updateMany({}, { $set: { stock: 100 } })
+
+Cambio el stock a 0 a los productos con precio mayor a 4000 :
+
+db.productos.updateMany({ price: { $gt: 4000 } }, { $set: { stock: 0 } })
+
+Borro los productos con precio menor a 1000 :
+
+db.productos.deleteMany({ price: { $lt: 1000 } })
+
+Se debe crear un usuario 'pepe' clave: 'asd456' que sólo pueda leer la base de datos ecommerce y verificar que pepe no pueda cambiar la información.
+
+use.admin
+db.createUser({
+    user: 'pepe',
+    pwd: 'asd456',
+    roles: [
+        { role: 'read', db: 'ecommerce'}
+    ]
+})
