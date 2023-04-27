@@ -10,7 +10,7 @@ Elegir uno de los frameworks vistos en clase y trasladar a esta nueva plataforma
 
 ### Funcionamiento
 
-En **`backend/Entrega-23`**
+En **`backend/DESAFIO 23`**
 
 ### `npm run dev`
 
